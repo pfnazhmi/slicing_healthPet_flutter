@@ -1,11 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:pet_health/screens/homeScreen.dart';
 
-class splashScreen extends StatelessWidget {
-  const splashScreen({super.key});
+class SplashScreen extends StatelessWidget {
+  const SplashScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
+    Future.delayed(const Duration(seconds: 5)).then((value) {
+      Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(
+            builder: (context) => HomeScreen(),
+          ),
+          (route) => false);
+    });
+
     return Scaffold(
       body: Stack(
         children: [
