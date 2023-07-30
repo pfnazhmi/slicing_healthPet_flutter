@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pet_health/screens/homeScreen.dart';
 import 'package:pet_health/screens/splashScreen.dart';
 
 void main() {
@@ -11,7 +12,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        debugShowCheckedModeBanner: false, home: const SplashScreen());
+    return const MaterialApp(
+        debugShowCheckedModeBanner: false, home: SplashScreen());
   }
 }
