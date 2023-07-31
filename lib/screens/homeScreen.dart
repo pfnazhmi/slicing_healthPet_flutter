@@ -1,45 +1,74 @@
 import 'package:feather_icons/feather_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pet_health/models/doctor_models.dart';
 import 'package:pet_health/models/service_models.dart';
 
 var selectedService = 0;
 
+var menus = [
+  FeatherIcons.home,
+  FeatherIcons.heart,
+  FeatherIcons.messageCircle,
+  FeatherIcons.user
+];
+
+var selectedMenus = 0;
+
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+  HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
+
     return Scaffold(
-        body: SafeArea(
-            child: Column(
-      children: [
-        const SizedBox(
-          height: 20,
+      bottomNavigationBar: _bottomNavbar(),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              const SizedBox(
+                height: 20,
+              ),
+              _greetings(),
+              const SizedBox(
+                height: 20,
+              ),
+              Card(),
+              const SizedBox(
+                height: 20,
+              ),
+              search(),
+              const SizedBox(
+                height: 20,
+              ),
+              serviceHorizontal(),
+              const SizedBox(
+                height: 27,
+              ),
+              doctors(),
+            ],
+          ),
         ),
-        _greetings(),
-        const SizedBox(
-          height: 20,
-        ),
-        Card(),
-        const SizedBox(
-          height: 20,
-        ),
-        search(),
-        const SizedBox(
-          height: 20,
-        ),
-        serviceHorizontal(),
-        const SizedBox(
-          height: 27,
-        ),
-        doctors()
-      ],
-    )));
+      ),
+    );
   }
+
+  BottomNavigationBar _bottomNavbar() => BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        backgroundColor: Colors.white,
+        selectedItemColor: const Color(0xFF818AF9),
+        unselectedItemColor: const Color(0xFFBFBFBF),
+        items: menus
+            .map((e) =>
+                BottomNavigationBarItem(icon: Icon(e), label: e.toString()))
+            .toList(),
+        showSelectedLabels: false,
+        showUnselectedLabels: false,
+      );
 
   ListView doctors() {
     return ListView.separated(
@@ -67,10 +96,83 @@ class HomeScreen extends StatelessWidget {
           ]),
       child: Row(
         children: [
-          Image.asset(
-            'assets/images/${doctorModel.image}',
-            width: 88,
-            height: 103,
+          Container(
+            clipBehavior: Clip.hardEdge,
+            decoration: BoxDecoration(borderRadius: BorderRadius.circular(8)),
+            child: Image.asset(
+              'assets/images/${doctorModel.image}',
+              width: 88,
+              height: 103,
+            ),
+          ),
+          const SizedBox(
+            width: 20,
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                doctorModel.name,
+                style: GoogleFonts.poppins(
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold,
+                    color: const Color(0xFF3F3E3F)),
+              ),
+              const SizedBox(
+                height: 7,
+              ),
+              RichText(
+                  text: TextSpan(
+                      text: "Service: ${doctorModel.service.join(', ')}",
+                      style: GoogleFonts.poppins(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w200,
+                          color: Colors.black))),
+              const SizedBox(
+                height: 7,
+              ),
+              Row(
+                children: [
+                  const Icon(
+                    FeatherIcons.mapPin,
+                    size: 14,
+                    color: Color(0xFFACA3A3),
+                  ),
+                  const SizedBox(
+                    width: 7,
+                  ),
+                  Text(
+                    "${doctorModel.distance}km",
+                    style: GoogleFonts.poppins(
+                        fontSize: 12,
+                        fontWeight: FontWeight.normal,
+                        color: const Color(0xFFACA3A3)),
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 7,
+              ),
+              Row(
+                children: [
+                  Text(
+                    "Available for",
+                    style: GoogleFonts.poppins(
+                        color: const Color(0xFF50CC98),
+                        fontSize: 12,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(
+                    width: 70,
+                  ),
+                  SvgPicture.asset("assets/svgs/cat.svg"),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  SvgPicture.asset("assets/svgs/cat.svg"),
+                ],
+              ),
+            ],
           )
         ],
       ),
@@ -167,13 +269,13 @@ class HomeScreen extends StatelessWidget {
                               letterSpacing: 3.5 / 100,
                               height: 150 / 100),
                           children: [
-                        TextSpan(
+                        const TextSpan(
                             text: "Catrine",
                             style: TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.w800)),
-                        TextSpan(text: " will get\nvaccination "),
-                        TextSpan(
+                        const TextSpan(text: " will get\nvaccination "),
+                        const TextSpan(
                             text: "tomorrow\nat 07.00 am!",
                             style: TextStyle(
                                 color: Colors.white,

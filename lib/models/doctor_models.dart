@@ -20,13 +20,18 @@ var doctorsList = [
       service: [Service.vaccine, Service.surgery],
       distance: 10),
   DoctorModels(
-      name: "Dr. Stone ",
-      image: "Dr. Stone.jpg",
+      name: "Dr. Vannesa",
+      image: "Dr. Vanessa.jpg",
+      service: [Service.vaccine, Service.surgery],
+      distance: 10),
+  DoctorModels(
+      name: "Dr. Vannesa ",
+      image: "Dr. Vanessa.jpg",
       service: [Service.vaccine, Service.surgery],
       distance: 10),
   DoctorModels(
       name: "Dr. Stone ",
       image: "Dr. Stone.jpg",
       service: [Service.vaccine, Service.surgery],
-      distance: 10)
+      distance: 10),
 ];
